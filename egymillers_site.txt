@@ -1,0 +1,13 @@
+www.awardspace.com
+login with google engmks7
+pass o6o8smo1n
+subdomain: egymillers.atwebpages.com
+database:
+	databasename:4638597_egymillers
+	username:4638597_egymillers
+	pass:egy123456
+	server:Server: fdb1028.awardspace.net:3306
+
+
+information bank post email:
+	engmks7.egymillers@blogger.com
