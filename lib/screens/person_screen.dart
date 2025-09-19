@@ -109,6 +109,10 @@ class _PersonScreenState extends State<PersonScreen> {
                     ],
                   ),
                   Appspacer(),
+                  SizedBox(
+                    height: isTwo ? 0 : 60,
+                    child: Text('برجاء كتابة قيم الجلوتين تصاعدي من الأصغر للأكبر بالترتيب',textAlign: TextAlign.center,style: TextStyle(color: Colors.red[600]),),
+                  ),
                   AppTextField(
                     validator: (String? value) {
                       if (value == '0' || value!.isEmpty) {

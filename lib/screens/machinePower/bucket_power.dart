@@ -15,17 +15,7 @@ class BucketPower extends StatefulWidget {
 
 class _BucketPowerState extends State<BucketPower> {
   var formKey = GlobalKey<FormState>();
-  var productType = ['قمح صلب', 'قمح سوفت', 'ردة خشنة', 'ردة ناعمة', 'دقيق 72', 'دقيق 82', 'سن'];
-  Map <String , int> productSWeight = {
-    'قمح صلب' : 850,
-    'قمح سوفت':760,
-    'ردة خشنة':230,
-    'ردة ناعمة':330,
-    'دقيق 72':580,
-    'دقيق 82':500,
-    'سن':400 };
-  String dropdownvalue = 'قمح صلب';
-  int productSpecificWeight = 850;
+  int productSpecificWeight = 750;
   var control1 = TextEditingController(),
       control2 = TextEditingController(),
       control3 = TextEditingController(),
@@ -58,69 +48,29 @@ class _BucketPowerState extends State<BucketPower> {
         child: Column(
           spacing: 12,
           children: [
-            Row(
-              spacing: 8,
-              children: [
-                SizedBox(
-                  width: 150,
-                  child:AppTextField(
-                      controller: control1,
-                      onChanged: (String? value){
-                        setState(() {
-                          productSpecificWeight = int.parse(value!);
-                        });
-                      },
-                      labelText: 'الوزن النوعي',
-                      validator: (String? value){return null;}
-                  ) ,
+            Padding(
+              padding: const EdgeInsets.only(top:6.0),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(24),
+                child: Image.asset(
+                  'assets/images/info/bucket.jpg',
+                  fit: BoxFit.contain,
+                  height: 150,
                 ),
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                        border: Border.all(color: primaryColor),
-                        color: scaffoldBackGround,
-                        borderRadius: BorderRadius.circular(10)),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left:8.0),
-                      child: DropdownButton(
-                        isExpanded: true,
-                        underline: SizedBox(),
-                        value: dropdownvalue,
-                        icon: Icon(Icons.keyboard_arrow_down,color: primaryColor,),
-                        iconSize: 32,
-                        borderRadius: BorderRadius.circular(10),
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                          color: primaryColor,
-                        ),
-                        alignment: Alignment.center,
-                        items: productType.map((String measureType) {
-                          return DropdownMenuItem(
-                            value: measureType,
-                            child: Text(measureType),
-                          );
-                        }).toList(),
-                        onChanged: (String? value) {
-                          setState(() {
-                            dropdownvalue = value!;
-                            productSpecificWeight = productSWeight[dropdownvalue]!;
-                            control1.text = productSpecificWeight.toString();
-                          });
-                        },
-                      ),
-                    ),
-                  ),
-                ),
-                Text(
-                  'نوع المنتج',
-                  style: TextStyle(
-                    color: primaryColor,
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
+              ),
+            ),
+            SizedBox(
+              height: 16,
+            ),
+            AppTextField(
+                controller: control1,
+                onChanged: (String? value){
+                  setState(() {
+                    productSpecificWeight = int.parse(value!);
+                  });
+                },
+                labelText: 'الوزن النوعي كجم / م3',
+                validator: (String? value){return null;}
             ),
             Row(
               spacing: 24,
@@ -177,7 +127,7 @@ class _BucketPowerState extends State<BucketPower> {
               onChanged: (String value){
                 bucketMotorGearboxShaftSpeed= double.parse(value);
               },
-              labelText: 'سرعة عمود دوران جيربوكس المحرك',
+              labelText: 'سرعة دوران ترس الجرار',
               validator: (String? value){
                 if (value!.isEmpty) {
                   return 'من فضلك أكتب قيمة صحيحة';
@@ -185,12 +135,17 @@ class _BucketPowerState extends State<BucketPower> {
                 return null;
               },
             ),
+            Text(
+              'لمعرفة سرعة دوران ترس الجرار .. 1- في حالة تركيب جير بوكس الموتور مباشرة على عمود ترس الجرار تكون السرعة هي سرعة جيربوكس الموتور .. 2- أما في حالة الربط بينهم بسيور أو جنزير فتكون السرعة تساوي سرعة جيربوكس الموتور مضروبة في قطر طنبورة جيربوكس الموتور و مقسومة على قطر طنبورة عمود ترس الجرار',
+              textAlign: TextAlign.center,style: TextStyle(color: Colors.red[600]
+            ),
+            ),
             AppTextField(
               controller: control5,
               onChanged: (String value){
                 bucketGearToothNumber= double.parse(value);
               },
-              labelText: 'عدد أسنان الترس',
+              labelText: 'عدد أسنان ترس الجرار',
               validator: (String? value){
                 if (value!.isEmpty) {
                   return 'من فضلك أكتب قيمة صحيحة';
@@ -233,8 +188,7 @@ class _BucketPowerState extends State<BucketPower> {
                       title: "مسح",
                       onPress: (){
                         setState(() {
-                          dropdownvalue = 'قمح صلب';
-                          control1.text = '850';
+                          control1.text = '750';
                           control2.text = '';
                           control3.text = '';
                           control4.text = '';
@@ -255,8 +209,22 @@ class _BucketPowerState extends State<BucketPower> {
                         if (formKey.currentState!.validate()){
                           var linearSpeed = bucketGearToothNumber * bucketMotorGearboxShaftSpeed * bucketSliderStep / 6000 ;
                           setState(() {
-                            machineCapacity = bucketWidth * bucketHeight * bucketFillFactor * linearSpeed * productSpecificWeight * 3.6 / 10000 ;
+                            machineCapacity = 0.01 * bucketWidth * 0.01 * bucketHeight * bucketFillFactor * linearSpeed * productSpecificWeight * 3.6 ;
                             motorPower = machineCapacity * bucketLength / 240 ;
+                            if (motorPower <= 0.55 ) { motorPower = 0.55;}
+                            else if (motorPower > 0.55 && motorPower <= 0.75) { motorPower = 0.75;}
+                            else if (motorPower > 0.75 && motorPower <= 1.1) { motorPower = 1.1;}
+                            else if (motorPower > 1.1 && motorPower <= 1.5) { motorPower = 1.5;}
+                            else if (motorPower > 1.5 && motorPower <= 2.2) { motorPower = 2.2;}
+                            else if (motorPower > 2.2 && motorPower <= 3) { motorPower = 3;}
+                            else if (motorPower > 3 && motorPower <= 4) { motorPower = 4;}
+                            else if (motorPower > 4 && motorPower <= 5.5) { motorPower = 5.5;}
+                            else if (motorPower > 5.5 && motorPower <= 7.5) { motorPower = 7.5;}
+                            else if (motorPower > 7.5 && motorPower <= 11) { motorPower = 11;}
+                            else if (motorPower > 11 && motorPower <= 15) { motorPower = 15;}
+                            else if (motorPower > 15 && motorPower <= 18.5) { motorPower = 18.5;}
+                            else if (motorPower > 18.5 && motorPower <= 22) { motorPower = 22;}
+                            else if (motorPower > 22 && motorPower <= 30) { motorPower = 30;}
                           });
                         }
                       },

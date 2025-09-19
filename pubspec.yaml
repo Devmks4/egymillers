@@ -43,6 +43,7 @@ dependencies:
   permission_handler: ^11.0.0
   connectivity_plus: ^5.0.2
   http: ^1.4.0
+  flutter_native_splash: ^2.4.0
 
 dev_dependencies:
   flutter_test:
@@ -102,3 +103,8 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+flutter_native_splash:
+  color: "#ffffff"
+  image: assets/icons/splash.png
+  android: true
+  ios: true

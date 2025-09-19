@@ -1,9 +1,10 @@
+import 'package:egymillers/screens/machinePower/conveyor_power.dart';
 import 'package:egymillers/shared/styles/colors.dart';
 import 'package:egymillers/widgets/app_textfield.dart';
 import 'package:egymillers/widgets/app_widgets.dart';
 import 'package:flutter/material.dart';
-
 import 'machinePower/bucket_power.dart';
+import 'machinePower/elevator_power.dart';
 
 class PowerCalculationsScreen extends StatefulWidget {
   const PowerCalculationsScreen({super.key});
@@ -16,6 +17,8 @@ class _PowerCalculationsScreen extends State<PowerCalculationsScreen> {
 
   var machineType = ['الكاتينة','البريمة', 'الساقية'];
   String dropdownvalue = 'الكاتينة';
+  int selectedIndex=0;
+  var machineScreen = [BucketPower(),ConveyorPower(),ElevatorPower()];
 @override
   void initState() {
     // TODO: implement initState
@@ -57,6 +60,7 @@ class _PowerCalculationsScreen extends State<PowerCalculationsScreen> {
                             isExpanded: true,
                             underline: SizedBox(),
                             value: dropdownvalue,
+
                             icon: Icon(Icons.keyboard_arrow_down,color: primaryColor,),
                             iconSize: 32,
                             borderRadius: BorderRadius.circular(10),
@@ -75,7 +79,7 @@ class _PowerCalculationsScreen extends State<PowerCalculationsScreen> {
                             onChanged: (String? value) {
                               setState(() {
                                 dropdownvalue = value!;
-            
+                                selectedIndex = machineType.indexOf(dropdownvalue);
                               });
                             },
                           ),
@@ -92,7 +96,7 @@ class _PowerCalculationsScreen extends State<PowerCalculationsScreen> {
                   ],
                 ),
                 Appspacer(),
-                BucketPower(),
+                machineScreen[selectedIndex],
               ],
             ),
           ),
