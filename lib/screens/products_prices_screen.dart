@@ -1,9 +1,12 @@
+import 'package:egymillers/providers/product_prices_provider.dart';
+import 'package:egymillers/screens/products_prices_update_screen.dart';
 import 'package:egymillers/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'package:provider/provider.dart';
 
 
+bool isAdmin = false;
+List<dynamic> prices = [];
 
 class ProductsPricesScreen extends StatefulWidget {
   const ProductsPricesScreen({super.key});
@@ -13,31 +16,15 @@ class ProductsPricesScreen extends StatefulWidget {
 }
 
 class _ProductsPricesScreen extends State<ProductsPricesScreen> {
-  List<dynamic> prices = [];
-  bool isLoading = true;
-
   @override
-  void initState() {
+  initState(){
     super.initState();
-    fetchPrices();
+    Future.microtask(()=> Provider.of<ProductsPricesProvider>(context, listen: false).fetchPrices());
   }
-  Future<void> fetchPrices() async {
-    final response = await http.get(Uri.parse('http://egymillers.atwebpages.com/get_prices.php'));
 
-    if (response.statusCode == 200) {
-      setState(() {
-        prices = json.decode(response.body);
-        isLoading = false;
-      });
-    } else {
-      setState(() {
-        isLoading = false;
-      });
-      throw Exception('لا يمكن تحميل الأسعار');
-    }
-  }
   @override
   Widget build(BuildContext context) {
+    final productProvider = Provider.of<ProductsPricesProvider>(context);
     return Scaffold(
       backgroundColor: scaffoldBackGround,
       appBar: AppBar(
@@ -49,19 +36,37 @@ class _ProductsPricesScreen extends State<ProductsPricesScreen> {
           ),
         ),
       ),
-      body: isLoading
-      ?  Center(child: CircularProgressIndicator())
+      floatingActionButton: productProvider.isLoading? null
+          : FloatingActionButton(
+              shape: CircleBorder(),
+              onPressed:(){
+                setState(() {
+                  _openBottomSheetPassWord(context);
+                });
+                if (isAdmin == true) {
+                  Navigator.push(context, MaterialPageRoute(
+                      builder: (context) => ProductsPricesUpdateScreen()));
+                } },
+              backgroundColor: primaryColor,
+              child: Icon(
+                Icons.edit,
+                size: 32,
+                color: Colors.white,
+              ),
+            ),
+      body:   productProvider.isLoading?
+      Center(child: CircularProgressIndicator())
           :
       Padding(
         padding: const EdgeInsets.symmetric(vertical: 16.0),
         child: ListView.builder(
-          itemCount: prices.length,
+          itemCount: productProvider.productPricesData.length,
           itemBuilder: (context, index) {
-            final product = prices[index];
+            final productPriceModel = productProvider.productPricesData[index];
             return ProductTile(
-                productName: product["product_name"],
-                productPrice: product["current_price"].toString(),
-                lastEdit: product["last_date"]
+                productName: productPriceModel.productName,
+                productPrice: productPriceModel.productPrice,
+                lastEdit: productPriceModel.lastDate,
             );
           },
         ),
@@ -69,6 +74,7 @@ class _ProductsPricesScreen extends State<ProductsPricesScreen> {
     );
   }
 }
+
 class ProductTile extends StatelessWidget {
   final String productName,productPrice,lastEdit;
 
@@ -147,4 +153,51 @@ class ProductTile extends StatelessWidget {
       ),
     );
   }
+}
+
+void _openBottomSheetPassWord (BuildContext context) {
+  TextEditingController controller = TextEditingController();
+  showModalBottomSheet(
+    context: context,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+    ),
+    isScrollControlled: true,
+    builder: (context) {
+      return Padding(
+        padding: EdgeInsets.only(
+          left: 16,
+          right: 16,
+          top: 20,
+          bottom: MediaQuery.of(context).viewInsets.bottom + 20,
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              controller: controller,
+              decoration: InputDecoration(
+                labelText: 'أدخل كلمة المرور',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            SizedBox(height: 12),
+            ElevatedButton(
+              onPressed: () {
+                if (controller.text == '3697'){
+                  Navigator.pop(context);
+                  isAdmin = true;
+                }
+                else {
+                  isAdmin = false;
+                }
+
+              },
+              child: Text('إدخال'),
+            ),
+          ],
+        ),
+      );
+    },
+  );
 }

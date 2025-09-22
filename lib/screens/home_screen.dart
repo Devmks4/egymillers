@@ -1,5 +1,3 @@
-import 'package:egymillers/screens/profile_screen.dart';
-import 'package:egymillers/screens/settings_screen.dart';
 import 'package:egymillers/widgets/home_screen_gridview.dart';
 import 'package:flutter/material.dart';
 import 'package:egymillers/shared/styles/colors.dart';
@@ -8,12 +6,12 @@ import 'package:share_plus/share_plus.dart';
 import 'package:egymillers/screens/about_developer_screen.dart';
 import 'package:egymillers/screens/app_support_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../shared/styles/styles.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -45,6 +45,15 @@ class _PowerCalculationsScreen extends State<PowerCalculationsScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               spacing: 16,
               children: [
+                Text('تم استخدام قوانين الحسابات من كتاب             م/ أبو زيد حمزة جزاه الله كل خير',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Colors.green[600],
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                      ),
+                ),
+                Appspacer(),
                 Row(
                   spacing: 24,
                   children: [

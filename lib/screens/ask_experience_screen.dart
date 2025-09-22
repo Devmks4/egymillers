@@ -12,7 +12,16 @@ class _AskExperienceScreen extends State<AskExperienceScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(shape: CircleBorder(),onPressed:(){},backgroundColor: primaryColor,child: Icon(Icons.add,size: 32,color: Colors.white,),),
+      floatingActionButton: FloatingActionButton(
+        shape: CircleBorder(),
+        onPressed:(){},
+        backgroundColor: primaryColor,
+        child: Icon(
+          Icons.add,
+          size: 32,
+          color: Colors.white,
+        ),
+      ),
       backgroundColor: scaffoldBackGround,
       appBar: AppBar(
         backgroundColor: primaryColor,

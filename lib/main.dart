@@ -1,9 +1,15 @@
+import 'package:egymillers/providers/product_prices_provider.dart';
 import 'package:egymillers/screens/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(MyApp());
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (_) => ProductsPricesProvider()),
+    ],
+    child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -15,6 +21,6 @@ class MyApp extends StatelessWidget {
       return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: HomeScreen(),
-    );
+          );
   }
 }
