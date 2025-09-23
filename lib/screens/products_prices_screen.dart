@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 
 
 bool isAdmin = false;
-List<dynamic> prices = [];
 
 class ProductsPricesScreen extends StatefulWidget {
   const ProductsPricesScreen({super.key});

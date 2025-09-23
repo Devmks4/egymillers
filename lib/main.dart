@@ -1,4 +1,5 @@
 import 'package:egymillers/providers/product_prices_provider.dart';
+import 'package:egymillers/providers/questions_provider.dart';
 import 'package:egymillers/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -8,6 +9,7 @@ void main() {
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (_) => ProductsPricesProvider()),
+      ChangeNotifierProvider(create: (_) => QuestionsProvider()),
     ],
     child: MyApp()));
 }
