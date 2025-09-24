@@ -1,5 +1,8 @@
 import 'package:egymillers/shared/styles/colors.dart';
+import 'package:egymillers/widgets/app_button.dart';
+import 'package:egymillers/widgets/app_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 
@@ -56,6 +59,22 @@ class _InfoBankScreen extends State<InfoBankScreen> {
         ? NoInternetScreen()
         : Scaffold(
       backgroundColor: scaffoldBackGround,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 14.0),
+        child: FloatingActionButton(
+          shape: CircleBorder(),
+          onPressed:(){
+            _launchLink('mailto:engmks7.egymillers@blogger.com?subject=عنوان المقال&body=نص المقال');
+          },
+          backgroundColor: Colors.deepPurple[600],
+          child: Icon(
+            Icons.add,
+            size: 32,
+            color: Colors.white,
+          ),
+        ),
+      ),
       appBar: AppBar(
         backgroundColor: primaryColor,
         title: Text(
@@ -63,7 +82,47 @@ class _InfoBankScreen extends State<InfoBankScreen> {
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
-      body: Center(child: WebViewWidget(controller: _controller)),
+      body: Center(
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      'لإضافة مقال جديد أضغط على الزر و أرسل المقال في الايميل و سيتم إضافته مباشرة للموقع '
+                    ),
+                  ),
+                  /*FloatingActionButton(
+                    shape: CircleBorder(),
+                    onPressed:(){
+                      _launchLink('mailto:engmks7.egymillers@blogger.com');
+                    },
+                    backgroundColor: primaryColor,
+                    child: Icon(
+                      Icons.add,
+                      size: 32,
+                      color: Colors.white,
+                    ),
+                  ),*/
+                ],
+              ),
+              Appspacer(),
+              Expanded(
+                child: WebViewWidget(
+                    controller: _controller
+                ),
+              ),
+            ],
+          ),
+      ),
     );
+  }
+}
+void _launchLink(String uri) async {
+  final url = Uri.parse(uri);
+  if (await canLaunchUrl(url)) {
+    await launchUrl(url, mode: LaunchMode.externalApplication);
+  } else {
+    throw 'Could not launch $url';
   }
 }

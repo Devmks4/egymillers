@@ -34,7 +34,27 @@ class HomeScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: HomeScreenGridView(),
+        child: Column(
+spacing: 12,
+          children: [
+            Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Colors.greenAccent,
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: primaryColor),
+              ),
+              child: Text('الرجاء الدعاء لوالدي و والدتي بالرحمة والمغفرة',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            Expanded(child: HomeScreenGridView()),
+          ],
+        ),
       ),
       drawer: Drawer(
         backgroundColor: Colors.transparent,

@@ -62,6 +62,7 @@ class QuestionsProvider with ChangeNotifier {
 
   Future<void> fetchAnswers(int questionID) async {
     _isAnswersLoading = true;
+    _answersData = [];
     notifyListeners();
     try {
       final http.Response response = await http.get(Uri.parse('http://egymillers.atwebpages.com/view_answers.php?questionID=$questionID'));

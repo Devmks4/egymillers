@@ -101,7 +101,7 @@ class _SupportDeveloperPageState extends State<SupportDeveloperPage> with Single
                         spacing: 7,
                         children: const [
                           Text(
-                            "شكر خاص لكل من",
+                            "شكر خاص لكل من شارك بعلمه",
                             style: TextStyle(
                               fontSize: 20,
                               color: Colors.white,

@@ -1,6 +1,5 @@
 import 'package:egymillers/screens/machinePower/conveyor_power.dart';
 import 'package:egymillers/shared/styles/colors.dart';
-import 'package:egymillers/widgets/app_textfield.dart';
 import 'package:egymillers/widgets/app_widgets.dart';
 import 'package:flutter/material.dart';
 import 'machinePower/bucket_power.dart';
