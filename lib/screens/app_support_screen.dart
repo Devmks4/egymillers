@@ -163,6 +163,15 @@ class _SupportDeveloperPageState extends State<SupportDeveloperPage> with Single
                             ),
                             textAlign: TextAlign.center, // محاذاة النص
                           ),
+                          Text(
+                            "و نأسف إن خانتنا الذاكرة بذكر أحد الزملاء",
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.white,
+                              height: 1.5, // مسافة بين السطور
+                            ),
+                            textAlign: TextAlign.center, // محاذاة النص
+                          ),
                         ],
                       ),
                     ),
