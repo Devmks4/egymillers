@@ -30,7 +30,7 @@ class ViewResult extends StatelessWidget {
         children: [
           Expanded(
             flex: flex2,
-            child:Text( measuredUnit,textAlign: TextAlign.center, style: TextStyle(color: Colors.black54,fontSize: 18),),
+            child:FittedBox(child: Text( measuredUnit,textAlign: TextAlign.center, style: TextStyle(color: Colors.black54,fontSize: 18),)),
           ),
           SizedBox(
             width: 8,
@@ -41,7 +41,7 @@ class ViewResult extends StatelessWidget {
           ),
           Expanded(
             flex: flex1,
-            child:Text(measuredTitle,textAlign: TextAlign.center ,style: TextStyle(color: Colors.black54,fontSize: 18),),
+            child:FittedBox(child: Text(measuredTitle,textAlign: TextAlign.center ,style: TextStyle(color: Colors.black54,fontSize: 18),)),
           ),
         ],
       ),

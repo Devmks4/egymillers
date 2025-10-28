@@ -25,7 +25,7 @@ class HomeScreenGridView extends StatelessWidget {
     HomeCard(title: 'سعة الصوامع',image: 'assets/images/siloCapacity.jpg',rOUTE: SilosCapacityScreen()),
     HomeCard(title: 'قدرات المعدات',image: 'assets/images/bucketElevator.jpg',rOUTE: PowerCalculationsScreen()),
     HomeCard(title: 'مقاسات الحرير',image: 'assets/images/silkMeasures.jpg',rOUTE: SilkScreen()),
-    HomeCard(title: 'مسطح الطحن',image: 'assets/images/rollermill.jpg',rOUTE: RollermillCalculationsScreen()),
+    HomeCard(title: 'طول الطحن',image: 'assets/images/rollermill.jpg',rOUTE: RollermillCalculationsScreen()),
     HomeCard(title: 'مسطح النخل',image: 'assets/images/Plansifter.jpg',rOUTE: PlansifterCalculationScreen()),
     HomeCard(title: 'بنك المعلومات',image: 'assets/images/bankOfInformation.webp',rOUTE: InfoBankScreen()),
     HomeCard(title: 'إسأل خبير',image: 'assets/images/es2lKhabeer.webp',rOUTE: AskExperienceScreen()),

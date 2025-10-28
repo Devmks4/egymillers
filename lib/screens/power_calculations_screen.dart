@@ -1,4 +1,5 @@
 import 'package:egymillers/screens/machinePower/conveyor_power.dart';
+import 'package:egymillers/screens/machinePower/speed_calculation_screen.dart';
 import 'package:egymillers/shared/styles/colors.dart';
 import 'package:egymillers/widgets/app_widgets.dart';
 import 'package:flutter/material.dart';
@@ -14,10 +15,10 @@ class PowerCalculationsScreen extends StatefulWidget {
 
 class _PowerCalculationsScreen extends State<PowerCalculationsScreen> {
 
-  var machineType = ['الكاتينة','البريمة', 'الساقية'];
+  var machineType = ['الكاتينة','البريمة', 'الساقية','السرعات'];
   String dropdownvalue = 'الكاتينة';
   int selectedIndex=0;
-  var machineScreen = [BucketPower(),ConveyorPower(),ElevatorPower()];
+  var machineScreen = [BucketPower(),ConveyorPower(),ElevatorPower(),SpeedCalculationScreen()];
 @override
   void initState() {
     // TODO: implement initState

@@ -26,19 +26,21 @@ class _AskExperienceScreen extends State<AskExperienceScreen> {
     final questionProvider = Provider.of<QuestionsProvider>(context);
 
     return Scaffold(
-      floatingActionButton: questionProvider.isQuestionsLoading? null : FloatingActionButton(
-        shape: CircleBorder(),
-        onPressed:(){
-           // _addQuestionBottomSheet(context);
-            showAddQuestionDialog(context);
-        },
-        backgroundColor: primaryColor,
-        child: Icon(
-          Icons.add,
-          size: 32,
-          color: Colors.white,
-        ),
-      ),
+      floatingActionButton: questionProvider.isQuestionsLoading? null :
+        FloatingActionButton(
+              shape: CircleBorder(),
+              onPressed:(){
+                 // _addQuestionBottomSheet(context);
+                questionProvider.canAddQuestion = true;
+                showAddQuestionDialog(context);
+              },
+              backgroundColor: primaryColor,
+              child: Icon(
+                Icons.add,
+                size: 32,
+                color: Colors.white,
+              ),
+            ),
       backgroundColor: scaffoldBackGround,
       appBar: AppBar(
         backgroundColor: primaryColor,

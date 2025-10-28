@@ -45,6 +45,7 @@ class _AskExperienceAnswersScreenState
                 shape: CircleBorder(),
                 onPressed: () {
                     //_addAnswerBottomSheet(context,widget.questionID);
+                    answerProvider.canAddAnswer = true;
                     showAddAnswerDialog(context,widget.questionID);
                 },
                 backgroundColor: primaryColor,

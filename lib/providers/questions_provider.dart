@@ -13,7 +13,11 @@ class QuestionsProvider with ChangeNotifier {
   List<AnswerModel> get answerData => _answersData;
   bool get isQuestionsLoading => _isQuestionsLoading;
   bool get isAnswersLoading => _isAnswersLoading;
-
+  bool _canAddQuestion = false , _canAddAnswer = false;
+  bool get canAddQuestion => _canAddQuestion;
+  bool get canAddAnswer => _canAddAnswer;
+  set canAddQuestion(bool value) => _canAddQuestion = value;
+  set canAddAnswer(bool value) => _canAddAnswer = value;
 
   Future<void> fetchQuestions() async {
     _isQuestionsLoading = true;
@@ -37,27 +41,23 @@ class QuestionsProvider with ChangeNotifier {
 
   Future<void> addQuestion(String question, String author) async {
     final url = Uri.parse('http://egymillers.atwebpages.com/add_question.php');
-
-    try {
-      final response = await http.post(
-        url,
-        body: {
-          'question': question,
-          'author': author,
-        },
-      );
-
-      if (response.statusCode == 200) {
-
-        await fetchQuestions(); // refresh after insert
-      } else {
-
+    if (_canAddQuestion){
+      try {
+        final response = await http.post(
+          url,
+          body: {
+            'question': question,
+            'author': author,
+          },
+        );
+        if (response.statusCode == 200) {
+          _canAddQuestion = false;
+          await fetchQuestions(); // refresh after insert
+        }
       }
-    } catch (e) {
-
+      catch (e) {}
+      notifyListeners();
     }
-
-    notifyListeners();
   }
 
   Future<void> fetchAnswers(int questionID) async {
@@ -81,28 +81,23 @@ class QuestionsProvider with ChangeNotifier {
 
   Future<void> addAnswer (int questionID, String answer,String author) async {
     final url = Uri.parse('http://egymillers.atwebpages.com/add_answer.php');
+    if(_canAddAnswer){
+      try {
+        final response = await http.post(
+          url,
+          body: {
+            'questionID': questionID.toString(),
+            'answer': answer,
+            'author': author,
+          },
+        );
 
-    try {
-      final response = await http.post(
-        url,
-        body: {
-          'questionID': questionID.toString(),
-          'answer': answer,
-          'author': author,
-        },
-      );
-
-      if (response.statusCode == 200) {
-
-        await fetchAnswers(questionID); // refresh after insert
-      } else {
-
-      }
-    } catch (e) {
-
+        if (response.statusCode == 200) {
+          _canAddAnswer = false;
+          await fetchAnswers(questionID); // refresh after insert
+        }
+      } catch (e) {}
+      notifyListeners();
     }
-
-    notifyListeners();
-
   }
 }

@@ -95,7 +95,7 @@ class _PlansifterCalculationScreenState extends State<PlansifterCalculationScree
                   onChanged: (value) {
                     capacity = double.parse(value);
                   },
-                  labelText: 'أدخل قدرة المطحن بالطن ساعة',
+                  labelText: 'أدخل قدرة المطحن بالطن / اليوم',
                   validator: (String? value){
                     return null;
                   },

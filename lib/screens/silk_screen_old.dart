@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:egymillers/widgets/app_widgets.dart';
 import '../widgets/app_button.dart';
 import '../widgets/drop_menu.dart';
-import 'package:egymillers/models/silk_table.dart';
 
 class SilkScreen extends StatefulWidget {
   const SilkScreen({super.key});
@@ -16,42 +15,356 @@ class SilkScreen extends StatefulWidget {
 class _SilkScreenState extends State<SilkScreen> {
   /*-----------------Variables-------------------*/
   var measureType = ["GG", "XXX", "السلك"];
-  late List<String?> measureValue ;
-  int measureSelected = 1;
-  late String? measureValueSelected  ;
   String dropdownvalue = "GG";
-  var micronValue = "1800", holecmValue = "4.4", diameterValue = "500", percentageValue = "51";
-
+  var micronValue = "0", holecmValue = "0", diameterValue = "0", percentageValue = "0";
+  var gg = [
+    "-",
+    "-",
+    "-",
+    "-",
+    "-",
+    "-",
+    "-",
+    "-",
+    "-",
+    "-",
+    "-",
+    "-",
+    "-",
+    "-",
+    "-",
+    "74",
+    "66",
+    "60",
+    "58",
+    "72",
+    "70",
+    "68",
+    "64",
+    "62",
+    "56",
+    "54",
+    "52",
+    "50",
+    "48",
+    "47",
+    "46",
+    "45",
+    "44",
+    "42",
+    "40",
+    "38",
+    "36",
+    "34",
+    "32",
+    "31",
+    "30",
+    "28",
+    "27",
+    "26",
+    "24",
+    "23",
+    "22",
+    "20",
+    "19",
+    "18",
+    "17",
+    "16",
+    "15",
+    "14",
+    "12",
+  ];
+  var xxx = [
+    "17",
+    "15",
+    "14.5",
+    "14",
+    "13",
+    "12.5",
+    "12",
+    "11",
+    "10.5",
+    "10",
+    "9.5",
+    "9",
+    "8.5",
+    "8",
+    "7",
+    "6",
+    "5",
+    "4",
+    "3",
+    "-",
+    "-",
+    "-",
+    "-",
+    "-",
+    "-",
+    "-",
+    "-",
+    "-",
+    "-",
+    "-",
+    "-",
+    "-",
+    "-",
+    "-",
+    "-",
+    "-",
+    "-",
+    "-",
+    "-",
+    "-",
+    "-",
+    "-",
+    "-",
+    "-",
+    "-",
+    "-",
+    "-",
+    "-",
+    "-",
+    "-",
+    "-",
+    "-",
+    "-",
+    "-",
+    "-",
+  ];
+  var micron = [
+    "80",
+    "85",
+    "90",
+    "95",
+    "100",
+    "106",
+    "112",
+    "118",
+    "125",
+    "132",
+    "140",
+    "150",
+    "160",
+    "180",
+    "200",
+    "212",
+    "250",
+    "280",
+    "300",
+    "224",
+    "236",
+    "243",
+    "265",
+    "275",
+    "308",
+    "315",
+    "335",
+    "355",
+    "363",
+    "375",
+    "390",
+    "400",
+    "425",
+    "450",
+    "475",
+    "500",
+    "530",
+    "560",
+    "600",
+    "630",
+    "670",
+    "710",
+    "750",
+    "800",
+    "850",
+    "900",
+    "950",
+    "1000",
+    "1120",
+    "1180",
+    "1250",
+    "1320",
+    "1400",
+    "1600",
+    "1800",
+  ];
+  var holecm = [
+    "71.4",
+    "69",
+    "66.7",
+    "60.6",
+    "58.8",
+    "56.8",
+    "55",
+    "50.5",
+    "48.8",
+    "47.1",
+    "43.5",
+    "41.7",
+    "38.5",
+    "35.7",
+    "31.2",
+    "30",
+    "27",
+    "23.8",
+    "22.7",
+    "29",
+    "28",
+    "27.5",
+    "24.7",
+    "24",
+    "21.4",
+    "21",
+    "20.2",
+    "19.5",
+    "18.5",
+    "18",
+    "17.5",
+    "17.2",
+    "16",
+    "15.5",
+    "14.8",
+    "14",
+    "13.3",
+    "12.5",
+    "12",
+    "11.5",
+    "11",
+    "10.3",
+    "9.7",
+    "9.3",
+    "8.7",
+    "8.3",
+    "8",
+    "7.5",
+    "6.8",
+    "6.5",
+    "6",
+    "5.8",
+    "5.4",
+    "5",
+    "4.3",
+  ];
+  var diameter = [
+    "60",
+    "60",
+    "60",
+    "70",
+    "70",
+    "60",
+    "70",
+    "80",
+    "80",
+    "80",
+    "90",
+    "90",
+    "100",
+    "100",
+    "120",
+    "120",
+    "120",
+    "140",
+    "140",
+    "120",
+    "120",
+    "120",
+    "140",
+    "140",
+    "160",
+    "160",
+    "160",
+    "160",
+    "180",
+    "180",
+    "180",
+    "180",
+    "200",
+    "200",
+    "205",
+    "220",
+    "220",
+    "240",
+    "240",
+    "240",
+    "260",
+    "260",
+    "280",
+    "280",
+    "300",
+    "300",
+    "300",
+    "320",
+    "350",
+    "350",
+    "400",
+    "400",
+    "450",
+    "450",
+    "500",
+  ];
+  var percentage = [
+    "35",
+    "35",
+    "36",
+    "33",
+    "32",
+    "38",
+    "38",
+    "34",
+    "37",
+    "40",
+    "37",
+    "38",
+    "37",
+    "39",
+    "39",
+    "40",
+    "46",
+    "45",
+    "45",
+    "42",
+    "44",
+    "44",
+    "43",
+    "44",
+    "44",
+    "44",
+    "46",
+    "48",
+    "46",
+    "47",
+    "47",
+    "47",
+    "46",
+    "48",
+    "48",
+    "47",
+    "50",
+    "49",
+    "51",
+    "53",
+    "53",
+    "53",
+    "52",
+    "53",
+    "53",
+    "56",
+    "57",
+    "57",
+    "58",
+    "59",
+    "58",
+    "59",
+    "59",
+    "60",
+    "61",
+  ];
   var searchIndex = 0;
   var searchTerm = '0';
   var errorMessage = " ";
   var formKey = GlobalKey<FormState>();
   var checkValidate = 0;
   /*---------------------------------------*/
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    measureValue = SilkTable.ggTable.map((row) => row['id']).toList();
-    measureValueSelected = measureValue[0];
-  }
-
-  void fetchValues (value , table){
-    var row = SilkTable.searchRow(value, table);
-    if(row != null){
-      micronValue = row['micron'].toString();
-      holecmValue = row['holescm'].toString();
-      diameterValue = row['diameter'].toString();
-      percentageValue = row['percentage'].toString();
-    }
-    else{
-      micronValue = "0";
-      holecmValue = "0";
-      diameterValue = "0";
-      percentageValue = "0";
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -92,54 +405,16 @@ class _SilkScreenState extends State<SilkScreen> {
                         children: [
                           Expanded(
                             child: AppDropMenu(
-                              menuList: measureValue,
-                              dropdownvalue: measureValueSelected!,
-                              onChanged: (String? value) {
-                                setState(() {
-                                  measureValueSelected = value!;
-                                  if (measureSelected == 1){
-                                    fetchValues(value, SilkTable.ggTable);
-                                  }
-                                  else if (measureSelected == 2){
-                                    fetchValues(value, SilkTable.xxxTable);
-                                  }
-                                  else if (measureSelected == 3){
-                                    fetchValues(value, SilkTable.metalTable);
-                                  }
-                                });
-                              },
+                              menuList: measureType,
+                              dropdownvalue: dropdownvalue,
+                              onChanged: (String? value) {  },
                             ),
                           ),
                           Expanded(
                             child: AppDropMenu(
                               menuList: measureType,
                               dropdownvalue: dropdownvalue,
-                              onChanged: (String? value) {
-                                setState(() {
-                                  dropdownvalue = value!;
-                                  if (value == 'GG')
-                                  {
-                                     measureValue = SilkTable.ggTable.map((row) => row['id']).toList();
-                                     measureValueSelected = measureValue[0];
-                                     measureSelected = 1;
-                                     fetchValues(measureValueSelected, SilkTable.ggTable);
-                                  }
-                                  else if (value == 'XXX')
-                                  {
-                                    measureValue = SilkTable.xxxTable.map((row) => row['id']).toList();
-                                    measureValueSelected = measureValue[0];
-                                    measureSelected = 2;
-                                    fetchValues(measureValueSelected, SilkTable.xxxTable);
-                                  }
-                                  else if (value == 'السلك')
-                                  {
-                                    measureValue = SilkTable.metalTable.map((row) => row['id']).toList();
-                                    measureValueSelected = measureValue[0];
-                                    measureSelected = 3;
-                                    fetchValues(measureValueSelected, SilkTable.metalTable);
-                                  }
-                                });
-                              },
+                              onChanged: (String? value) {  },
                             ),
                           ),
                         ],
@@ -153,9 +428,9 @@ class _SilkScreenState extends State<SilkScreen> {
                         child: Padding(
                           padding: const EdgeInsets.all(16.0),
                           child: Row(
-                            spacing: 16,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            spacing: 40,
                             children: [
+                              Spacer(flex: 1,),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisSize: MainAxisSize.min,
@@ -225,6 +500,7 @@ class _SilkScreenState extends State<SilkScreen> {
                                   ),
                                 ],
                               ),
+                              Spacer(flex: 1,),
                             ],
                           ),
                         ),
@@ -240,6 +516,3 @@ class _SilkScreenState extends State<SilkScreen> {
     );
   }
 }
-
-
-

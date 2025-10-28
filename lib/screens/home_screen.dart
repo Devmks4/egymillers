@@ -1,19 +1,38 @@
+import 'dart:async';
 import 'package:egymillers/widgets/home_screen_gridview.dart';
 import 'package:flutter/material.dart';
 import 'package:egymillers/shared/styles/colors.dart';
 import 'package:flutter/services.dart';
+import 'package:marquee/marquee.dart';
+import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:egymillers/screens/about_developer_screen.dart';
 import 'package:egymillers/screens/app_support_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../providers/general_provider.dart';
 import '../shared/styles/styles.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   HomeScreen({super.key});
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+   // Future.microtask(()=> Provider.of<GeneralProvider>(context, listen: false).fetchSupportMessage());
+    //Timer.periodic(const Duration(seconds: 2), (_) => Future.microtask(()=> Provider.of<GeneralProvider>(context, listen: false).fetchSupportMessage()));
+  }
+  @override
   Widget build(BuildContext context) {
+    final generalProvider = Provider.of<GeneralProvider>(context);
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: scaffoldBackGround,
@@ -35,7 +54,7 @@ class HomeScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
-spacing: 12,
+          spacing: 12,
           children: [
             Container(
               width: double.infinity,
@@ -52,7 +71,31 @@ spacing: 12,
                 ),
               ),
             ),
-            Expanded(child: HomeScreenGridView()),
+            generalProvider.isLoading || generalProvider.supportMessage.isEmpty ? SizedBox() :
+            Container(
+              height: 30,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Colors.greenAccent,
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: primaryColor),
+              ),
+              child:
+                  Marquee(
+                    text:generalProvider.supportMessage,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                  ),
+                    textDirection: TextDirection.rtl,
+                    blankSpace: 150.0,
+                    velocity: 50.0,
+                    pauseAfterRound: Duration(seconds: 1),
+                  ),
+            ),
+            Expanded(
+                child: HomeScreenGridView(),
+            ),
           ],
         ),
       ),
